@@ -1,0 +1,38 @@
+[
+  {
+    "name": "Ensure 100% Accurate Verification",
+    "price": "47,043",
+    "detail": "Confirm the accuracy of every background check with our precise verification system.",
+    "image": "./agentHome.jfif"
+  },
+  {
+    "name": "Secure Document Storage",
+    "price": "66,353",
+    "detail": "Safely store and manage all verification documents with enhanced security measures.",
+    "image": "./agentHome.jfif"
+  },
+  {
+    "name": "Real-Time Status Tracking for Agents",
+    "price": "35,853",
+    "detail": "Monitor the progress of background checks with real-time status updates for agents.",
+    "image": "./agentHome.jfif"
+  },
+  {
+    "name": "Real-Time Status Tracking for Head Agents",
+    "price": "47,043",
+    "detail": "Keep track of all ongoing verifications with detailed status updates for head agents.",
+    "image": "./agentHome.jfif"
+  },
+  {
+    "name": "Real-Time Status Tracking for Verifiers",
+    "price": "66,353",
+    "detail": "Ensure verifiers have up-to-date information on the status of background checks.",
+    "image": "./agentHome.jfif"
+  },
+  {
+    "name": "Comprehensive Verification Dashboard",
+    "price": "35,853",
+    "detail": "Access an all-in-one dashboard to manage and review verification processes efficiently.",
+    "image": "./agentHome.jfif"
+  }
+]
