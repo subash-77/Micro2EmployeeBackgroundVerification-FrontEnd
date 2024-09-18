@@ -55,7 +55,7 @@ const HeadAgentNavbar = () => {
     } else {
       setIsLoggedIn(false);
     }
-    // navigate('/dashboard');
+    navigate('/viewassignedrecords');
   }, []);
 
   const decodeToken = (token) => {
@@ -117,9 +117,7 @@ const HeadAgentNavbar = () => {
             className={`text-white origin-left font-medium text-xl transition-transform duration-300 ${
               !open && "scale-0"
             }`}
-          >
-            Verifier
-          </h1>
+          >Verifier</h1>
         </div>
         <ul className="pt-6">
           {Menus.map((Menu, index) => (

@@ -195,15 +195,20 @@
 // };
 
 // export default HeadAgentNavbar;
-
+//-------------------------------------------------------------------------------------------------
 import React, { useState, useEffect } from "react";
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 import { FaBell, FaSignOutAlt, FaUser } from "react-icons/fa";
 import { IoIosArrowDown } from "react-icons/io";
 import axios from "axios";
+import Toast from './Toast';
 import ProfileModal from './AgentProfile';  // Import the ProfileModal component
 
 const HeadAgentNavbar = () => {
+    const [records, setRecords] = useState([]);
+    const [showToast, setShowToast] = useState(false);
+const [toastMessage, setToastMessage] = useState('');
+    const [expRecords, setExpRecords] = useState([]);
   const [open, setOpen] = useState(true);
   const [profileOpen, setProfileOpen] = useState(false);
   const [isTokenValid, setIsTokenValid] = useState(true);
@@ -212,6 +217,7 @@ const HeadAgentNavbar = () => {
   const [modalMessage, setModalMessage] = useState('');
   const [profile, setProfile] = useState(null); 
   const [showProfileModal, setShowProfileModal] = useState(false); 
+  const [notificationCount, setNotificationCount] = useState(0);
   const navigate = useNavigate();
 
   const Menus = [
@@ -233,6 +239,7 @@ const HeadAgentNavbar = () => {
     } else {
       setIsLoggedIn(false);
     }
+    navigate('/viewrecordstoverify');
   }, []);
 
   const decodeToken = (token) => {
@@ -277,6 +284,55 @@ const HeadAgentNavbar = () => {
     setShowProfileModal(false);
   };
 
+  useEffect(() => {
+    // Fetch onboarding employee records
+    fetchRecords();
+    // Fetch agent records
+    // fetchAgents();
+}, []);
+
+const fetchRecords = () => {
+    fetch('http://localhost:1230/agent/allAgentOnBoardingEmployee')
+        .then(response => response.json())
+        .then(data => {
+            setRecords(data);
+            const approvedCount = data.filter(record => record.schoolStatus === 'Approved' || record.collegeStatus === 'Approved').length;
+            if (approvedCount > 0) {
+                setNotificationCount(prevCount => prevCount + approvedCount);
+                setToastMessage(`You have ${approvedCount} new notifications!`);
+                setShowToast(true);
+            }
+            console.log(data);
+        })
+        .catch(err => {
+            console.error('API error:', err);
+            //setError('Error fetching records.');
+        });
+
+    fetch('http://localhost:1230/agent/allAgentOnBoardingExpEmployee')
+        .then(response => response.json())
+        .then(data => {
+            setExpRecords(data);
+            const approvedCount = data.filter(record => record.schoolStatus === 'Approved' || record.collegeStatus === 'Approved').length;
+            if (approvedCount > 0) {
+                setNotificationCount(prevCount => prevCount + approvedCount);
+                setToastMessage(`You have ${approvedCount} new notifications!`);
+                setShowToast(true);
+            }
+            console.log(data);
+        })
+        .catch(err => {
+            console.error('API error:', err);
+            //setError('Error fetching records.');
+        });
+};
+const handleToastClose = () => {
+    setShowToast(false);
+};
+const handleBellClick = () => {
+    navigate('/agentrecordstatus');
+  };
+
   return (
     <div className="flex h-screen overflow-hidden">
       {/* Sidebar */}
@@ -288,6 +344,9 @@ const HeadAgentNavbar = () => {
           onClick={() => setOpen(!open)}
         />
         <div className="flex gap-x-4 items-center">
+        <img src="agentLogo.png" className={`cursor-pointer w-10 duration-500 ${
+                open && "rotate-[360deg]"
+            } `}/>
           <h1 className={`text-white origin-left font-medium text-xl transition-transform duration-300 ${!open && "scale-0"}`}>
             Agent
           </h1>
@@ -317,7 +376,10 @@ const HeadAgentNavbar = () => {
         {/* Top Bar */}
         <div className={`fixed top-0 left-${open ? "72" : "20"} right-0 bg-dark-purple text-white flex items-center justify-end px-6 py-4`}>
           <div className="flex items-center space-x-6">
-            <FaBell className="text-xl cursor-pointer" />
+            <FaBell 
+             className="text-xl cursor-pointer"
+             onClick={handleBellClick} />
+             {/*  */}
             <div className="relative">
               <FaUser
                 className="text-xl cursor-pointer"
@@ -359,6 +421,13 @@ const HeadAgentNavbar = () => {
         profile={profile}
       />
       {/* <Modal isOpen={showModal} onClose={closeModal} message={modalMessage} /> */}
+
+      {showToast && (
+    <Toast
+        message={toastMessage}
+        onClose={handleToastClose}
+    />
+)}
     </div>
   );
 };

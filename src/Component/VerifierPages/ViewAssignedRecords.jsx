@@ -2431,7 +2431,7 @@ const ViewAssignedRecords = () => {
             const fields = [
                 'resume', 'educationTenth', 'educationTwelth',
                 'sem1', 'sem2', 'sem3', 'sem4', 'sem5', 'sem6', 'sem7', 'sem8',
-                'drivingLicense', 'aadhaar'
+                'drivingLicense', 'aadhaar','expRecord'
             ];
 
             fields.forEach(field => {
@@ -2496,7 +2496,7 @@ const ViewAssignedRecords = () => {
                 </button>
             </div>
 
-            {records.length > 0 && (
+            {companyName !== 'company' && records.length > 0 && (
                 <div>
                     <h2 className="text-xl font-semibold mb-4">Employees Records</h2>
                     <table className="min-w-full divide-y divide-gray-200 mb-8">
@@ -2569,6 +2569,7 @@ const ViewAssignedRecords = () => {
                     </table>
                 </div>
             )}
+            
 
             <Modal
                 isOpen={showDocumentsModal}
@@ -2596,6 +2597,8 @@ const ViewAssignedRecords = () => {
                                     return key.startsWith('education');
                                 } else if (companyName === 'college') {
                                     return key.startsWith('sem');
+                                } else if(companyName ==='company'){
+                                    return key.startsWith('expRecord') && !key.startsWith('expRecordStatus');
                                 }
                                 return false;
                             }).map(([key, value]) => (

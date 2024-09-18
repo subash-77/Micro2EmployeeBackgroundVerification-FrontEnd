@@ -293,6 +293,7 @@ const TaskStatus = () => {
             <th className="py-3 px-4 border-b">Phone Number</th>
             <th className="py-3 px-4 border-b">School Document Status</th>
             <th className="py-3 px-4 border-b">College Document Status</th>
+            <th className="py-3 px-4 border-b">Comapany Document Status</th>
             <th className="py-3 px-4 border-b">Report</th>
           </tr>
         </thead>
@@ -307,6 +308,9 @@ const TaskStatus = () => {
               </td>
               <td className={`py-2 px-4 border-b rounded ${getDocumentStatusStyle(record.collegeStatus)}`}>
                 {record.collegeStatus || 'Pending'}
+              </td>
+              <td className={`py-2 px-4 border-b rounded ${getDocumentStatusStyle(record.expRecordStatus)}`}>
+                {record.expRecordStatus || 'Pending'}
               </td>
               <td className="py-2 px-4 border-b">
                 {getReportByExpEmployeeId(record.onboardingExpEmployeeId, expRecordsReport) ? (

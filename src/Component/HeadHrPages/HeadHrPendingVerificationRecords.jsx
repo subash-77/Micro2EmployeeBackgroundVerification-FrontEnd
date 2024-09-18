@@ -285,6 +285,7 @@ const [successMessage, setSuccessMessage] = useState(''); // Success message con
             formData.append("sem6", createBlob(selectedRecord.sem6, "sem6.pdf"), "sem6.pdf");
             formData.append("sem7", createBlob(selectedRecord.sem7, "sem7.pdf"), "sem7.pdf");
             formData.append("sem8", createBlob(selectedRecord.sem8, "sem8.pdf"), "sem8.pdf");
+            formData.append("expRecord", createBlob(selectedRecord.sem8, "expRecord.pdf"), "expRecord.pdf");
             formData.append("drivingLicense", createBlob(selectedRecord.drivingLicense, "drivingLicense.pdf"), "drivingLicense.pdf");
             formData.append("aadhaar", createBlob(selectedRecord.aadhaar, "aadhaar.pdf"), "aadhaar.pdf");
     
